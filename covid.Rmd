@@ -1,22 +1,10 @@
 ---
 title: "COVID"
-author:
-- name: Kieran Healy
-  affiliation: Duke University
-  email: kjhealy@soc.duke.edu
+author: "David Barron"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
-crossrefYaml: "config/pandoc-crossref-settings.yaml"
 output:
   html_document: distill::distill_article
-  pdf_document: 
-    md_extensions: +simple_tables+table_captions+yaml_metadata_block+smart
-    template: /Users/kjhealy/.pandoc/templates/rmd-latex.template
-    pandoc_args: [
-      "--bibliography", "/Users/kjhealy/Documents/bibs/socbib-pandoc.bib",
-      "--filter", "pandoc-crossref",
-      "--filter", "pandoc-citeproc",
-      "--csl", "/Users/kjhealy/.pandoc/csl/ajps.csl"
-      ]      
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -37,13 +25,9 @@ library(paletteer)
 ## Custom font and theme, omit if you don't have the myriad library
 ## (https://github.com/kjhealy/myriad) and associated Adobe fonts.
 ## --------------------------------------------------------------------
-library(showtext)
-showtext_auto()
-library(myriad)
-import_myriad_semi()
 
 theme_covid <- function() { 
-    theme_myriad_semi() +
+    
     theme(plot.title = element_text(size = rel(2), face = "bold"),
           plot.subtitle = element_text(size = rel(1.5)),
           plot.caption = element_text(size = rel(0.9)),
@@ -56,7 +40,7 @@ theme_covid <- function() {
 }
 
 
-theme_set(theme_covid())
+#theme_set(theme_covid())
 
 ### --------------------------------------------------------------------
 
@@ -84,7 +68,7 @@ get_ecdc_data <- function(url = "https://www.ecdc.europa.eu/sites/default/files/
   
   tf <- tempfile(fileext = ext)
   curl::curl_download(target, tf)
-  fs::file_copy(tf, destination)
+  fs::file_copy(tf, destination, overwrite = TRUE)
   
   switch(ext, 
   xls = janitor::clean_names(readxl::read_xls(tf)),
@@ -112,7 +96,7 @@ get_uscovid_data <- function(url = "https://covidtracking.com/api/",
   
   tf <- tempfile(fileext = ext)
   curl::curl_download(target, tf)
-  fs::file_copy(tf, destination)
+  fs::file_copy(tf, destination, overwrite = TRUE)
   
   janitor::clean_names(read_csv(tf))
 }                          
@@ -457,7 +441,7 @@ us_states %>%
        subtitle = paste("Top 10 States. Data as of", format(max(us_states$date), "%A, %B %e, %Y")),
        caption = "Data: COVID Tracking Project, http://covidtracking.com | Graph: @kjhealy",
        y = NULL, 
-       x = "Count") + 
+       x = "Count")  
 ```
 
 ```{r, layout="l-body-outset", fig.width=10, fig.height=8}
