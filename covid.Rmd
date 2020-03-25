@@ -3,8 +3,8 @@ title: "COVID"
 author: "David Barron"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
-  html_document: distill::distill_article
   pdf_document: default
+  html_document: distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
