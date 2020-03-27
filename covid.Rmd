@@ -55,15 +55,16 @@ col_pal <- c("#E69F00", "#0072B2", "#000000", "#56B4E9",
 
 ## Download today's excel file, saving it to data/ and reading it in
 get_ecdc_data <- function(url = "https://www.ecdc.europa.eu/sites/default/files/documents/",
-                          fname = "COVID-19-geographic-distribution-worldwide-", 
+                          fname = "COVID-19-geographic-disbtribution-worldwide-", 
                           date = lubridate::today(), 
+                          writedate = lubridate::today(),
                           ext = "xlsx", 
                           dest = "data") {
   
   target <-  paste0(url, fname, date, ".", ext)
   message("target: ", target)
 
-  destination <- fs::path(here::here("data"), paste0(fname, date), ext = ext)
+  destination <- fs::path(here::here("data"), paste0(fname, writedate), ext = ext)
   message("saving to: ", destination)
   
   tf <- tempfile(fileext = ext)
