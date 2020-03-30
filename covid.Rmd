@@ -385,8 +385,7 @@ cov_case_curve <- covid %>%
   mutate(days_elapsed = date - min(date),
           end_label = ifelse(date == max(date), cname, NA))
 
-
-cov_case_curve %>%
+(p_national_grouped <- cov_case_curve %>%
   mutate(end_label = recode(end_label, `United States` = "USA",
                         `Iran, Islamic Republic of` = "Iran", 
                         `Korea, Republic of` = "South Korea", 
@@ -398,20 +397,21 @@ cov_case_curve %>%
   ggplot(mapping = aes(x = days_elapsed, y = cu_cases, 
          color = cgroup, label = end_label, 
          group = cname)) + 
-  geom_line(size = 0.8) + 
-  geom_text_repel(nudge_x = 1.1,
-                  nudge_y = 0.1, 
+  geom_line(size = 0.5) + 
+  geom_text_repel(nudge_x = 0.6,
+                  nudge_y = -0.1, 
                   segment.color = NA) + 
   guides(color = FALSE) + 
   scale_color_manual(values = cgroup_cols) +
   scale_y_continuous(labels = scales::comma_format(accuracy = 1), 
-                     breaks = 2^seq(4, 16, 1),
+                     breaks = 2^seq(4, 17, 1),
                      trans = "log2") + 
   labs(x = "Days Since 100th Confirmed Case", 
        y = "Cumulative Number of Reported Cases (log2 scale)", 
        title = "Cumulative Reported Cases of COVID-19, Selected Countries", 
        subtitle = paste("ECDC data as of", format(max(cov_curve$date), "%A, %B %e, %Y")), 
        caption = "Kieran Healy @kjhealy / Data: https://www.ecdc.europa.eu/") 
+)
 
 ```
 
