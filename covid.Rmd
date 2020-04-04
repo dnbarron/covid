@@ -424,6 +424,7 @@ us_states_raw <- get_uscovid_data()
 
 us_states <- us_states_raw %>%
   mutate(date = lubridate::ymd(date)) %>%
+  select(-(hash:date_checked)) %>%
   pivot_longer(positive:death, names_to = "measure", values_to = "count")
 
 us_states %>%
