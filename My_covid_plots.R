@@ -1,15 +1,15 @@
 covid_uk <- covid %>%
   filter(iso3 == "GBR", date >= lubridate::dmy("01-03-2020"))
 
-covid_uk[1, 6] <- 103
-covid_new <- covid_uk[1, ]
-covid_new[1, 1] <- lubridate::ymd("2020-03-27")
-covid_new[1, 2] <- 27
-covid_new[1, 5] <- 2129
-covid_new[1, 6] <- NA
-covid_new[1, "date"] <- lubridate::ymd("2020-03-27")
-
-covid_uk <- bind_rows(covid_new, covid_uk)
+# covid_uk[1, 6] <- 103
+# covid_new <- covid_uk[1, ]
+# covid_new[1, 1] <- lubridate::ymd("2020-03-27")
+# covid_new[1, 2] <- 27
+# covid_new[1, 5] <- 2129
+# covid_new[1, 6] <- NA
+# covid_new[1, "date"] <- lubridate::ymd("2020-03-27")
+#
+# covid_uk <- bind_rows(covid_new, covid_uk)
 
 covid_uk %>%
   ggplot(aes(x = date, y = cases)) +
