@@ -21,7 +21,8 @@ covid_uk %>%
   geom_point() +
   geom_smooth(se = FALSE)
 
-covid_plot <- covid %>% filter(iso3 %in% c("GBR", "ITA", "ESP", "USA", "CHN")) %>%
+covid_plot <- covid %>% filter(iso3 %in%
+                                 c("GBR", "ITA", "ESP", "USA", "CHN", "SWE")) %>%
   select(date, cases, deaths, iso3, cname) %>%
   group_by(iso3) %>%
   arrange(date) %>%
@@ -50,3 +51,4 @@ covid_plot %>%
      subtitle = paste("Data as of", format(max(cov_curve$date), "%A, %B %e, %Y")),
      caption = "David Barron / Data: https://www.ecdc.europa.eu/") +
   ggthemes::theme_clean()
+
