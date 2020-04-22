@@ -43,7 +43,7 @@ covid_plot %>%
                   segment.color = NA) +
   guides(colour = FALSE) +
   scale_y_continuous(labels = scales::comma_format(accuracy = 1),
-                     breaks = 2^seq(4, 13),
+                     breaks = 2^seq(4, 16),
                      trans = "log2") +
   labs(x = "Days Since 10th Confirmed Death",
      y = "Cumulative Number of Deaths (log2 scale)",
