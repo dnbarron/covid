@@ -17,8 +17,10 @@ covid_uk %>%
   geom_line(aes(y = deaths), colour = "red")
 
 covid_uk %>%
+  mutate(roll_deaths = zoo::rollmean(deaths, 7, align = 'left', na.pad = TRUE)) %>%
   ggplot(aes(x = date, y = deaths)) +
   geom_point() +
+  geom_line(aes(y = roll_deaths), colour = "hotpink") +
   geom_smooth(se = FALSE)
 
 covid_plot <- covid %>% filter(iso3 %in%

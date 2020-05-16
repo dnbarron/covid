@@ -206,7 +206,7 @@ covid_raw <- get_ecdc_data(url = "https://www.ecdc.europa.eu/sites/default/files
 covid_raw
 
 covid <- covid_raw %>%
-  mutate(date = lubridate::ymd(date_rep),
+  mutate(date = lubridate::dmy(date_rep),
          iso2 = geo_id)
 
 covid
@@ -424,7 +424,7 @@ us_states_raw <- get_uscovid_data()
 
 us_states <- us_states_raw %>%
   mutate(date = lubridate::ymd(date)) %>%
-  select(-(hash:date_checked)) %>%
+  select(-(data_quality_grade:date_checked)) %>%
   pivot_longer(positive:death, names_to = "measure", values_to = "count")
 
 us_states %>%
@@ -447,7 +447,7 @@ us_states %>%
 ```
 
 ```{r, layout="l-body-outset", fig.width=10, fig.height=8}
-us_states %>%
+Nus_states %>%
   group_by(state) %>%
   mutate(core = case_when(state == "NY" ~ "NY", 
                           state == "WA" ~ "WA", 
